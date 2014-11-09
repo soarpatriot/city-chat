@@ -1,0 +1,45 @@
+{
+  "name": "city-chat",
+  "author": "soar",
+  "version": "0.6.0",
+  "repository": {
+    "url": "https://github.com/soarpatriot/city-chat"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+
+    "faye": "*",
+    "log4js": "0.6.9",
+    "method-override": "^1.0.2",
+    "moment": "1.7.2",
+
+    "node-uuid": "1.4.0",
+    "nodemailer": "0.5.5",
+    "q": "0.9.7",
+    "redis": "0.8.2",
+
+    "underscore": "1.4.2",
+    "underscore.string": "2.3.0",
+
+    "compression": "~1.0.9"
+  },
+  "devDependencies": {
+    "grunt": ">=0.4.1",
+    "grunt-clean": "^0.4.0",
+    "grunt-contrib-clean": ">=0.5.0",
+    "grunt-contrib-concat": ">0.1.1",
+    "grunt-contrib-jshint": ">=0.6.0",
+    "grunt-contrib-nodeunit": ">=0.2.0",
+    "grunt-contrib-requirejs": ">=0.4.1",
+    "grunt-contrib-uglify": ">=0.2.2",
+    "grunt-contrib-watch": ">=0.4.4",
+    "grunt-css": ">0.0.0"
+  },
+  "engines": {
+    "node": ">0.8.x",
+    "npm": ">=1.1.x"
+  }
+}
