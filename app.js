@@ -6,7 +6,7 @@ var server = http.createServer(),
 
 bayeux.on('handshake', function(clientId) {
    console.log("client connected: "+ clientId);
-   send("/chat","welcome");
+   //send("/chat","welcome");
 });
 
 bayeux.on('publish', function(clientId,channel,data) {
@@ -22,3 +22,4 @@ function send(channel, text){
      text:   text
   });
 }
+
