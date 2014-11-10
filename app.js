@@ -18,6 +18,11 @@ var server = http.createServer(),
 });
 
 bayeux.on('handshake', function(clientId) {
+   console.log("client handshake: "+ clientId);
+   //send("/chat","welcome");
+});
+
+bayeux.on('connected', function(clientId) {
    console.log("client connected: "+ clientId);
    //send("/chat","welcome");
 });
