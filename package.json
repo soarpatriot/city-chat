@@ -12,6 +12,7 @@
   "dependencies": {
 
     "faye": "*",
+    "faye-redis": "*",
     "log4js": "0.6.9",
     "method-override": "^1.0.2",
     "moment": "1.7.2",
