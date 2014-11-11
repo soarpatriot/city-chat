@@ -6,7 +6,7 @@ var http = require('http'),
 
 var server = http.createServer(),
     bayeux = new faye.NodeAdapter({
-    	mount: '/faye', 
+    	mount: '/faye',
     	timeout: 45,
         engine: {
 		  type:   fayeRedis,
@@ -19,11 +19,19 @@ var server = http.createServer(),
 
 bayeux.on('handshake', function(clientId) {
    console.log("client handshake: "+ clientId);
+   channel = "city/channels/"+clientId;
+   send(channel,"welcome haha");
    //send("/chat","welcome");
 });
 
-bayeux.on('connected', function(clientId) {
-   console.log("client connected: "+ clientId);
+bayeux.on('subscribe', function(clientId,channel) {
+   isPrivate = /\/channels\/\d+/.test(channel);
+   console.log("not private"+channel)
+   if(isPrivate){
+      console.log("private");
+      send(channel,"welcome haha");
+   }
+
    //send("/chat","welcome");
 });
 
