@@ -8,13 +8,14 @@ var server = http.createServer(),
     bayeux = new faye.NodeAdapter({
     	mount: '/faye',
     	timeout: 45,
-        engine: {
-		  type:   fayeRedis,
-		  host:   'localhost',
-		  port: 6379,
-		  namespace: 'city'
+      
+      engine: {
+		    type:   fayeRedis,
+		    host:   'localhost',
+		    port: 6379,
+		    namespace: 'city'
 		    // more options
-		}
+		  }
 });
 
 bayeux.on('handshake', function(clientId) {
@@ -43,7 +44,7 @@ bayeux.on('publish', function(clientId,channel,data) {
 
 bayeux.attach(server);
 server.listen(8000);
-console.log("server started")
+//console.log("server started")
 function send(channel, text){
   bayeux.getClient().publish(channel, {
      text:   text

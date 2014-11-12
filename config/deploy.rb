@@ -11,7 +11,7 @@ set :repo_url, 'git@github.com:soarpatriot/city-chat.git'
 # set :deploy_to, '/var/www/my_app'
 set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v0.10.28'
-set :nvm_map_bins, %w{node npm nvm supervisor forever}
+set :nvm_map_bins, %w{node npm  forever}  #nvm supervisor
 # set :nvm_custom_path, '/home/soar/.nvm/'
 # Default value for :scm is :git
 set :scm, :git
@@ -29,7 +29,7 @@ set :pty, true
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{node_modules}
+set :linked_dirs, %w{node_modules tmp}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -41,18 +41,68 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
+    
     on roles(:app) do
       within current_path  do
-        execute :supervisor,  "app.js"
-        
+        if test("[ -f #{fetch(:node_pid)} ]")
+          info ">>>>>> restarting application"
+          execute :forever, "restart --pidFile #{fetch(:node_pid)} app.js"
+          info ">>>>>> restart application success"
+        else
+          info ">>>>>> no started application, begin to start"
+          execute :forever, "start --pidFile #{fetch(:node_pid)} app.js"
+          info ">>>>>> application started"
+        end
+        #with NODE_ENV: :development do
+          # commands in this block execute as the "deploy" user.
+          
+            # commands in this block execute with the environment
+            # variable RAILS_ENV=production
+            # execute "nvm use 0.10.28"
+            
+             
       end
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      
     end
   end
+  
+  task :start do 
+    on roles(:app) do
+      within current_path  do
+        unless test("[ -f #{fetch(:node_pid)} ]")
+          info ">>>>>> starting application"
+          execute :forever, "start --pidFile #{fetch(:node_pid)} app.js"
+          
+        else
+          error ">>>>>> application already started"
+        end
+        
+      end
+
+    end
+  end 
+
+  task :stop do 
+    on roles(:app) do
+      within current_path  do
+        if test("[ -f #{fetch(:node_pid)} ]")
+          info ">>>>>> stop application"
+          execute :forever, "stop app.js"
+          
+        else
+          error ">>>>>> can not stop. there is no started "
+        end
+        
+      end
+
+    end
+  end 
+
 
   after :publishing, "dependency:npm"
   after :publishing, :restart
+
+
   #after :restart do
    # on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:

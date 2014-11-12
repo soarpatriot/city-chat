@@ -6,7 +6,7 @@ set :branch, "dev"
 
 set :deploy_to, "/home/soar/site/city-chat"
 
-
+set :node_pid, "#{shared_path}/tmp/pids/city-chat.pid"
 #set :password, ask('Server password', nil)
 #server fetch(:server_name), user: 'soar', port: 22, password: fetch(:password), roles: %w{web app db}
 
