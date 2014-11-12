@@ -11,7 +11,7 @@ set :repo_url, 'git@github.com:soarpatriot/city-chat.git'
 # set :deploy_to, '/var/www/my_app'
 set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v0.10.28'
-set :nvm_map_bins, %w{node npm nvm}
+set :nvm_map_bins, %w{node npm nvm supervisor forever}
 # set :nvm_custom_path, '/home/soar/.nvm/'
 # Default value for :scm is :git
 set :scm, :git
@@ -33,7 +33,7 @@ set :linked_dirs, %w{node_modules}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :supervisor, "#{fetch(:nvm_path)}/#{fetch(:nvm_node)}/bin/supervisor"
+set :supervisor, "/home/soar/.nvm/#{fetch(:nvm_node)}/bin/supervisor"
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
@@ -41,10 +41,10 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      within current_path do
-        execute :nvm, "use 0.10.28"
-        execute :supervisor, "app.js"
+    on roles(:app) do
+      within current_path  do
+        execute :supervisor,  "app.js"
+        
       end
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
