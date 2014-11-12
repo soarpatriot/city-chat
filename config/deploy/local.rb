@@ -1,7 +1,7 @@
 set :stage, :local
 set :server_name, "192.168.252.115"
 
-set :branch, "master"
+set :branch, "dev"
 
 
 set :deploy_to, "/home/soar/site/city-chat"

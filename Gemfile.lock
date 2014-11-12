@@ -10,6 +10,8 @@ GEM
       sshkit (~> 1.2)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
+    capistrano-nvm (0.0.4)
+      capistrano (~> 3.1)
     capistrano-rails (1.1.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -34,5 +36,6 @@ DEPENDENCIES
   capistrano
   capistrano-bundler
   capistrano-ext
+  capistrano-nvm
   capistrano-rails
   capistrano-rvm
