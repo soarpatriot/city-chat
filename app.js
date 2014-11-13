@@ -43,7 +43,7 @@ bayeux.on('publish', function(clientId,channel,data) {
 });
 
 bayeux.attach(server);
-server.listen(8000);
+server.listen(9001);
 //console.log("server started")
 function send(channel, text){
   bayeux.getClient().publish(channel, {

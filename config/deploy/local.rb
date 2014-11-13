@@ -1,5 +1,5 @@
 set :stage, :local
-set :server_name, "192.168.252.115"
+set :server_name, "192.168.1.140"
 
 set :branch, "dev"
 
