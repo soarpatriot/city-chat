@@ -46,11 +46,11 @@ namespace :deploy do
       within current_path  do
         if test("[ -f #{fetch(:node_pid)} ]")
           info ">>>>>> restarting application"
-          execute :forever, "restart --pidFile #{fetch(:node_pid)} app.js"
+          execute :forever, "--pidFile #{fetch(:node_pid)} restart app.js"
           info ">>>>>> restart application success"
         else
           info ">>>>>> no started application, begin to start"
-          execute :forever, "start --pidFile #{fetch(:node_pid)} app.js"
+          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js"
           info ">>>>>> application started"
         end
         #with NODE_ENV: :development do
@@ -71,7 +71,7 @@ namespace :deploy do
       within current_path  do
         unless test("[ -f #{fetch(:node_pid)} ]")
           info ">>>>>> starting application"
-          execute :forever, "start --pidFile #{fetch(:node_pid)} app.js"
+          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js"
           
         else
           error ">>>>>> application already started"
